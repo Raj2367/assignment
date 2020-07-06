@@ -4,14 +4,14 @@ function autocomplete(inp,hinp, arr)
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
    
-    var val;
+    var val,x=0;
     /*execute a function when someone writes in the text field:*/
     inp.addEventListener("input", function (e) 
     {     
                                               
         var a, b,c, i;
         val = this.value; 
-        console.log(val.length);   
+        //console.log(val.length);   
         if(val.length==0)
         {
             /*close any already open lists of autocompleted values if input length is 0*/
@@ -59,15 +59,32 @@ function autocomplete(inp,hinp, arr)
                                 /*insert the value for the autocomplete text field:*/
                                 inp.value ="";     
                                 c = document.createElement("DIV");
-                                c.innerHTML += "<input type='text' value='"+this.getElementsByTagName("input")[0].value+"' disabled style='width:30%;float:left;background-color:DodgerBlue;font-weight: bold;margin:3px;'>";
+                                c.innerHTML += "<input type='text' id='myList"+x+"' value='"+this.getElementsByTagName("input")[0].value+"' disabled style='width:25%;float:left;background-color:DodgerBlue;font-weight: bold;margin-top:10px;margin-bottom:5px;'><input id='myList"+x+"'type='submit' value='X' style='margin-right:15px;float:left;margin-top:10px;margin-bottom:5px;'>";
+                                x++;
                                 var d = a.parentNode;
                                 d.replaceChild(c,a);
                                 c.appendChild(a);
+                                
+                                //Remove the movie name when click that name
+                                c.addEventListener("click", function (e) {
+                                    e = e || window.event;
+
+                                    //get id of the particular target 
+                                    var target = e.target || e.srcElement,
+                                        text = target.textContent || target.innerText;  
+                                    
+                                    //remove the name from the div when click on it
+                                    var list = document.getElementById(target.id);   
+                                    list.parentNode.removeChild(list);
+                                    var list1 = document.getElementById(target.id); 
+                                    list1.parentNode.removeChild(list1);                                    
+                                });
                                 /*close the list of autocompleted values,
                                 (or any other open lists of autocompleted values:*/
                                 closeAllLists();
 
                             });
+                            
                             a.appendChild(b);
                     }
                 }                                                                                      
@@ -75,7 +92,7 @@ function autocomplete(inp,hinp, arr)
             });
         }                                            
     });
-
+    
     function closeAllLists(elmnt) 
     {
         /*close all autocomplete lists in the document,
