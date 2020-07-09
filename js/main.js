@@ -9,12 +9,14 @@ function autocomplete(inp,hinp, arr)
     inp.addEventListener("input", function (e) 
     {     
                                               
-        var a, b,c, i;
+        var a, b, c, i, e;
         val = this.value; 
         //console.log(val.length);   
         if(val.length==0)
         {
             /*close any already open lists of autocompleted values if input length is 0*/
+            closeAllLists();  
+            closeAllLists();  
             closeAllLists();  
         }    
         //console.log(val.length);
@@ -59,8 +61,9 @@ function autocomplete(inp,hinp, arr)
                                 /*insert the value for the autocomplete text field:*/
                                 inp.value ="";     
                                 c = document.createElement("DIV");
-                                c.innerHTML += "<input type='text' id='myList"+x+"' value='"+this.getElementsByTagName("input")[0].value+"' disabled style='width:25%;float:left;background-color:DodgerBlue;font-weight: bold;margin-top:10px;margin-bottom:5px;'><input id='myList"+x+"'type='submit' value='X' style='margin-right:15px;float:left;margin-top:10px;margin-bottom:5px;'>";
+                                c.innerHTML += "<input type='text' id='myList"+x+"' value='"+this.getElementsByTagName("input")[0].value+"' disabled style='background-color:white; border-color:black; border-width:1px; width:25%; float:left; font-weight:bold; margin-top:10px; margin-bottom:5px;'><button id='myList"+x+"'type='submit' value='X' style='background-color:#eb7575; margin-right:15px; margin-top:10px; margin-bottom:5px; float:left; height: 40px;'>X</button>";
                                 x++;
+                                
                                 var d = a.parentNode;
                                 d.replaceChild(c,a);
                                 c.appendChild(a);
@@ -72,17 +75,21 @@ function autocomplete(inp,hinp, arr)
                                     //get id of the particular target 
                                     var target = e.target || e.srcElement,
                                         text = target.textContent || target.innerText;  
-                                    
+                                    console.log(target);
                                     //remove the name from the div when click on it
-                                    var list = document.getElementById(target.id);   
-                                    list.parentNode.removeChild(list);
-                                    var list1 = document.getElementById(target.id); 
-                                    list1.parentNode.removeChild(list1);                                    
+                                    if(target.value=="X")
+                                    {
+                                        var list = document.getElementById(target.id);   
+                                        list.parentNode.removeChild(list);
+                                        var list1 = document.getElementById(target.id); 
+                                        list1.parentNode.removeChild(list1);  
+                                    }                                  
                                 });
                                 /*close the list of autocompleted values,
                                 (or any other open lists of autocompleted values:*/
                                 closeAllLists();
-
+                                closeAllLists();  
+                                closeAllLists();  
                             });
                             
                             a.appendChild(b);
