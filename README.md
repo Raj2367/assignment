@@ -8,8 +8,9 @@ or
 **You can simply visit the site**
 [Here :)](https://assign-ment2367.netlify.app/)
 
-# features
+# Features
 1. Search any movie of your choice
-2. You can select any movie from the search result
+2. You can select any movie from the autocomplete search result
 3. A list of selected movie will appear bellow the input box
 4. You can remove any selected movie from the list
+5. If you click on the other part of the document, then it will close all the search result
